@@ -1,3 +1,32 @@
-<p>
-  table works!
-</p>
+
+<div *ngIf="ordersObservable | async as orders; else loading">
+  <table class="table table-striped">
+    <thead class="table-header">
+        <tr>
+            <th>Orders</th>
+          </tr>      
+      <tr>
+        <th scope="col">Coffee</th>
+        <th scope="col">Method</th>
+        <th scope="col">Number of Cases</th>
+        <th scope="col">Packets per Case</th>
+        <th scope="col">Ship Date</th>
+        <th scope="col">Order</th>
+        <th scope="col">View</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <th scope="row">{{order.coffee}}</th>
+        <th>{{order.brew_method}}</th>
+        <th>{{order.number_of_cases}}</th>
+        <th>{{order.packets_per_case}}</th>
+        <th>{{order.ship_date | date:'shortDate'}}<span *ngIf="order.priority"><i class="fas fa-star"></i></span></th>
+        <th>#{{order.order_number}}</th>
+        <th><span><i class="fas fa-eye"></i></span></th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loading>Loading</ng-template>

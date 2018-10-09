@@ -7,12 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   private currentDate:any;
+  private display:boolean;
 
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit() {
     // Sets date to UTC...
     this.currentDate = Date.now();
   }
 
+  private showDialog() : void {
+    this.display = true;
+  }
 }

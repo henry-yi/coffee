@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { TableComponent } from './table/table.component';
 import { FormComponent } from './form/form.component';
 
-import { DateService } from './shared/services/date.service';
+import { OrderService } from './shared/services/order.service';
 
 @NgModule({
   declarations: [
@@ -17,8 +18,9 @@ import { DateService } from './shared/services/date.service';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule
   ],
-  providers: [DateService],
+  providers: [OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 .header-container {
     height: 150px;
+    margin-bottom: 40px;
 }
 
 .header-row {
@@ -45,7 +46,8 @@
     user-select: none;
     cursor: pointer;
     background-color: #00A1DF;
-    padding: 18px 42px;
+    padding: 8px 28px;
+    margin-top: 15px;
 
     &:hover {
         background-color: #0088CC;

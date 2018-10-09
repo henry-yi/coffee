@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Order } from '../shared/models/order';
+import { Subject } from 'rxjs';
+
+import { OrderService } from '../shared/services/order.service';
 
 @Component({
   selector: 'app-table',
@@ -6,10 +10,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
+  private ordersObservable = new Subject<Order[]>();
 
-  constructor() { }
+  constructor(private _orderService:OrderService) { }
 
-  ngOnInit() {
+  public ngOnInit() {
+    this._orderService.getOrders().subscribe((orders) => {
+      this.ordersObservable.next(orders);
+    });
   }
-
 }

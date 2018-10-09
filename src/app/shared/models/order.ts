@@ -1,10 +1,11 @@
 export interface Order {
     id: number;
     coffee: string; //ENUM
-    brewMethod: string; //ENUM
-    numberOfCases: number;
-    packetsPerCase: number;
-    shipDate: Date;
+    brew_method: string; //ENUM
+    number_of_cases: number;
+    packets_per_case: number;
+    ship_date: Date;
     priority: boolean;
+    order_number:number;
     notes: string;
 }
