@@ -1,3 +1,51 @@
-<p>
-  form works!
-</p>
+<div *ngIf="displayForm" class="overlay">
+  <div class="coffee-form">
+    <span class="close-button" (click)="destroyForm()"><i class="fas fa-times"></i></span>
+    <h1>Perfectly Ground Work Orders</h1>
+    <p>Instructional text would go here - Lorem ipsum dolor sit amet, consecteutur adispicsing elit. Nulem fegiat libero eget diam.</p>
+
+    <form class="work-order-form" (ngSubmit)="save()" [formGroup]="workOrderForm">
+      <fieldset>
+        <div class="field-row row">
+          <div class="col-6">
+            <label class="label-field" for="coffee">Coffee*</label>
+            <input class="input-field" id="coffee" type="text" formControlName="coffee" required>
+          </div>
+          <div class="col-6">
+            <label class="label-field" for="brew_method">Brew Method*</label>
+            <input class="input-field" id="brew_method" type="text" formControlName="brew_method" required>
+          </div>          
+        </div>
+        <div class="field-row row">
+          <div class="col-6">
+            <label class="label-field" for="ship_date">Ship Date*</label>
+            <input class="input-field" id="ship_date" type="date" formControlName="ship_date" required>
+          </div>
+          <div class="col-3">
+            <label class="label-field" for="number_of_cases">Number of Cases*</label>
+            <input class="input-field" id="number_of_cases" type="number" formControlName="number_of_cases" required>
+          </div>
+          <div class="col-3">
+              <label class="label-field" for="packets_per_case">Packets per Case*</label>
+              <input class="input-field" id="packets_per_case" type="number" formControlName="packets_per_case" required>
+            </div>                      
+        </div>
+        <div class="field-row row">
+          <div class="col-12">
+            <label class="label-field" for="notes">Notes</label>
+            <input class="input-field" id="notes" type="text" formControlName="notes">
+          </div>                      
+        </div> 
+        <div class="field-row row">
+          <div class="col-12">
+            <input id="priority" type="checkbox" formControlName="priority">
+            <label for="priority">Priority</label>
+          </div>                      
+        </div>
+        <div class="col-2">
+          <button type="submit" class="create-order-button" [disabled]="!workOrderForm.valid">SUBMIT WORK ORDER</button>
+        </div>                                
+      </fieldset>
+    </form>
+  </div>
+</div>

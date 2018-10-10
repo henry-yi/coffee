@@ -1,15 +1,37 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormService } from './form.service';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
+  styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  @Input() public visible:boolean;
+  public displayForm:boolean;
+  public workOrderForm:FormGroup;
 
-  constructor() { }
+  constructor(private _formBuilder:FormBuilder, private _formService:FormService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.workOrderForm = this._formBuilder.group({
+      coffee: [null, Validators.required],
+      brew_method: [null, Validators.required],
+      ship_date: [null, Validators.required],
+      number_of_cases: [null, Validators.required],
+      packets_per_case: [null, Validators.required],
+      notes: null,
+      priority: false
+    })
+  }
 
+  private destroyForm() : void {
+    this.displayForm = false;
+  }
+
+  private save() : void {
+    this._formService.saveOrders(this.workOrderForm.value).subscribe((data)=>{
+      this.displayForm = false;      
+    });
+  }
 }

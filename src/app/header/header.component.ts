@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewChild, ComponentRef } from '@angular/core';
+import { FormDirective } from '../form/form.directive';
+import { FormComponent } from '../form/form.component';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @ViewChild(FormDirective) public formHost:FormDirective;
   private currentDate:any;
   private display:boolean;
 
-  constructor() { }
+  constructor(private _componentFactoryResolver:ComponentFactoryResolver) { }
 
   public ngOnInit() {
     // Sets date to UTC...
@@ -17,6 +20,15 @@ export class HeaderComponent implements OnInit {
   }
 
   private showDialog() : void {
-    this.display = true;
+    const componentFactory = this._componentFactoryResolver.resolveComponentFactory(FormComponent);
+    const viewContainerRef = this.formHost.viewContainerRef;
+
+    let component = viewContainerRef.createComponent(componentFactory);
+
+    this.initFormComponent(component);
+  }
+
+  private initFormComponent(component:ComponentRef<any>) : void {
+    component.instance.displayForm = true;
   }
 }
