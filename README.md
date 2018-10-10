@@ -1,27 +1,49 @@
-# Coffee
+# Perfectly Ground Work Orders
+## Description of Architecture
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.4.
+1. Frontend developed with Angular 6, supported by Bootstrap for responsive grid layout. 
+2. Backend server developed with node.js/Express and Sequelize
+3. Postgres Database with a simple work_orders table.
 
-## Development server
+## Description of Tradeoffs
+From a architectural standpoint, I decided to create 2 main components for Angular, headerComponent, and the tableComponent. Since the Create Order Button is aligned with the Header, I kept it there even though its a tradeoff losing out easier integration with the TableComponent.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Spent too much time working with Postgres, could've maybe spent less time configuring a MySQL database but wanted to try something less familiar.
 
-## Code scaffolding
+Initially planned on using 3rd party library for modal, but opted for spinning up a simpler one utilizing Angular Component Factory. Slightly complicated, but more control with using Angular to toggle modal.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Description of How to Run Locally
+1. Unzip files into a directory.
+2. In command line tool, change directory to "coffee" and run "npm install". Do the same with coffee-server.
+3. Setup a postgres database.
+    ex SQL:
+  
+CREATE TABLE public.work_orders
+(
+    coffee character(256) COLLATE pg_catalog."default" NOT NULL,
+    brew_method character(256) COLLATE pg_catalog."default" NOT NULL,
+    number_of_cases integer NOT NULL,
+    packets_per_case integer NOT NULL,
+    ship_date date NOT NULL,
+    order_number integer NOT NULL,
+    priority boolean NOT NULL,
+    "createdAt" date,
+    "updatedAt" date,
+    id integer NOT NULL DEFAULT nextval('work_orders_id_seq'::regclass)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
 
-## Build
+ALTER TABLE public.work_orders
+    OWNER to postgres;    
+4. run 'npm start' on coffee-server.
+5. run 'ng serve -o' on coffee.
+6. Navigate to localhost:4200 if browser did not automatically open a new tab.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Description of Deployment and Production Readiness
+Production Readiness: Due to time limits, I've not been able to complete a few last steps asked for this coding challenge. Unit Tests, Integration tests are missing, as well as key functionality such as pagination and table updates on creating new work orders.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Deployment process:
+The simplest deployment process would be to build the angular app, using external libraries like webpack, or as simple as running 'ng build --prod' and moving the dist folder to the node.js server application. The server should then be deployed to a hosted site, such as AWS, Heroku, etc.

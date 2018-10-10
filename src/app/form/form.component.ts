@@ -31,6 +31,7 @@ export class FormComponent implements OnInit {
 
   private save() : void {
     this._formService.saveOrders(this.workOrderForm.value).subscribe((data)=>{
+      console.log(data);
       this.displayForm = false;      
     });
   }

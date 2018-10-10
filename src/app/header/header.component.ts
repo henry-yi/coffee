@@ -9,8 +9,7 @@ import { FormComponent } from '../form/form.component';
 })
 export class HeaderComponent implements OnInit {
   @ViewChild(FormDirective) public formHost:FormDirective;
-  private currentDate:any;
-  private display:boolean;
+  public currentDate:any;
 
   constructor(private _componentFactoryResolver:ComponentFactoryResolver) { }
 
@@ -19,7 +18,7 @@ export class HeaderComponent implements OnInit {
     this.currentDate = Date.now();
   }
 
-  private showDialog() : void {
+  public showDialog() : void {
     const componentFactory = this._componentFactoryResolver.resolveComponentFactory(FormComponent);
     const viewContainerRef = this.formHost.viewContainerRef;
 

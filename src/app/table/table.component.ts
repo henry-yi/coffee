@@ -10,7 +10,7 @@ import { OrderService } from '../shared/services/order.service';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  private ordersObservable = new Subject<Order[]>();
+  public ordersObservable = new Subject<Order[]>();
 
   constructor(private _orderService:OrderService) { }
 
